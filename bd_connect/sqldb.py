@@ -42,6 +42,7 @@
     >> 'vasay'
 
 """
+
 from pathlib import Path
 from typing import Type, TypeVar, List
 
@@ -50,7 +51,7 @@ from psycopg2.extras import RealDictCursor
 from pydantic import BaseModel, Json, Field
 
 
-AnyModel = TypeVar('AnyModel', bound=BaseModel)
+AnyModel = TypeVar("AnyModel", bound=BaseModel)
 
 
 class SQLDBException(Exception):
@@ -61,6 +62,7 @@ class Statement:
     """
     Класс описывает выполненный sql запрос из которого можно получить данные
     """
+
     def __init__(self, connection: psycopg2.connect, query: str, params: dict):
         """
         Инициализцаия класса
@@ -96,7 +98,9 @@ class Statement:
                     return data
         except Exception as e:
             self.connection.rollback()
-            raise SQLDBException(f'QUERY ERROR: \n{self.query}\nPARAMS: {str(self.params)}\nEXCEPTION: {e}\n')
+            raise SQLDBException(
+                f"QUERY ERROR: \n{self.query}\nPARAMS: {str(self.params)}\nEXCEPTION: {e}\n"
+            )
 
     def all(self, model: Type[AnyModel] = None) -> list | None | List[AnyModel]:
         """
@@ -122,7 +126,9 @@ class Statement:
                     return data
         except Exception as e:
             self.connection.rollback()
-            raise SQLDBException(f'QUERY ERROR: \n{self.query}\nPARAMS: {str(self.params)}\nEXCEPTION: {e}\n')
+            raise SQLDBException(
+                f"QUERY ERROR: \n{self.query}\nPARAMS: {str(self.params)}\nEXCEPTION: {e}\n"
+            )
 
     def none(self) -> None:
         """
@@ -136,13 +142,16 @@ class Statement:
                 self.connection.commit()
         except Exception as e:
             self.connection.rollback()
-            raise SQLDBException(f'QUERY ERROR: \n{self.query}\nPARAMS: {str(self.params)}\nEXCEPTION: {e}\n')
+            raise SQLDBException(
+                f"QUERY ERROR: \n{self.query}\nPARAMS: {str(self.params)}\nEXCEPTION: {e}\n"
+            )
 
 
 class SQLDB:
     """
     Класс является абстракцией над базой данных, 1 объект класса является одной базой данных
     """
+
     def __init__(self, configuration: dict = None):
         """
         Инициализация класса
@@ -155,7 +164,9 @@ class SQLDB:
             self.connection = configuration
             self.connection = psycopg2.connect(**configuration)
 
-    def set_configuration(self, host: str, port: str, database: str, user: str, password: str) -> None:
+    def set_configuration(
+        self, host: str, port: str, database: str, user: str, password: str
+    ) -> None:
         """
         Метод для установки конфигурации для подключения к бд, если была передана конфигурация
         во время инициализации класса, то данный метод вызывать не нужно
@@ -168,15 +179,13 @@ class SQLDB:
         :return:
         """
         self.configuration = {
-            'host': host,
-            'port': port,
-            'database': database,
-            'user': user,
-            'password': password
+            "host": host,
+            "port": port,
+            "database": database,
+            "user": user,
+            "password": password,
         }
-        self.connection = psycopg2.connect(
-            **self.configuration
-        )
+        self.connection = psycopg2.connect(**self.configuration)
 
     def execute(self, sql_path: str, params: dict = None) -> Statement:
         """
@@ -187,13 +196,13 @@ class SQLDB:
         :return: стейтмент
         """
         if self.connection is None:
-            raise SQLDBException('No database connections')
-        path = ['./sql'] + sql_path.split('.')
-        path[-1] += '.sql'
+            raise SQLDBException("No database connections")
+        path = ["./sql"] + sql_path.split(".")
+        path[-1] += ".sql"
         try:
-            with open(Path(*path), 'r') as sql:
+            with open(Path(*path), "r") as sql:
                 query = sql.read()
         except Exception as e:
-            raise SQLDBException(f'No such file: {str(Path(*path))}')
+            raise SQLDBException(f"No such file: {str(Path(*path))}")
         else:
             return Statement(self.connection, query, params)
