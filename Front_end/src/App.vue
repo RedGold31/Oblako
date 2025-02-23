@@ -1,0 +1,224 @@
+<template>
+<body>
+<h1>Тестовый сбор данных от пользователя(Регистрация)</h1>
+<div style="max-width: 500px; margin-left: auto; margin-right: auto; padding: 15px;">
+<div class="text-field text-field_floating-3">
+    <input class="text-field__input" id="name" name="name" type="text" v-model="userName" placeholder="Имя">
+    <label class="text-field__label" for="name">Имя</label>
+</div>
+<div class="text-field text-field_floating-3">
+    <input class="text-field__input" id="email" name="email" type="password" v-model="userPass" placeholder="Пароль">
+    <label class="text-field__label" for="email">Пароль</label>
+</div>
+<button class="glow-on-hover" @click="sendData()">Регистрация</button>
+</div>
+<p>{{ users }}</p>
+</body>
+</template>
+
+<script>
+export default {
+    data(){
+        return{
+            users: [],
+            userName: '',
+            userPass: ''
+        }
+    },
+    methods: {
+        sendData(){
+            this.users.push({
+                name: this.userName,
+                pass: this.userPass
+            })
+        }
+    }
+}
+</script>
+
+<style scoped>
+h1 {
+    color: blueviolet;
+    font-weight: lighter;
+}
+body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #fff;
+}
+.text-field {
+      margin-bottom: 1rem;
+    }
+
+    .text-field__label {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .text-field__input {
+      display: block;
+      width: 100%;
+      height: calc(2.25rem + 2px);
+      padding: 0.375rem 0.75rem;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #bdbdbd;
+      border-radius: 0.25rem;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    .text-field__input[type="search"]::-webkit-search-decoration,
+    .text-field__input[type="search"]::-webkit-search-cancel-button,
+    .text-field__input[type="search"]::-webkit-search-results-button,
+    .text-field__input[type="search"]::-webkit-search-results-decoration {
+      -webkit-appearance: none;
+    }
+
+    .text-field__input::placeholder {
+      color: #212529;
+      opacity: 0.4;
+    }
+
+    .text-field__input:focus {
+      color: #212529;
+      background-color: #fff;
+      border-color: #bdbdbd;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+    }
+
+    .text-field__input:disabled,
+    .text-field__input[readonly] {
+      background-color: #f5f5f5;
+      opacity: 1;
+    }
+
+    /* with floating label */
+    .text-field_floating-3 {
+      position: relative;
+    }
+
+    .text-field_floating-3 .text-field__input {
+      border: none;
+      border-bottom: 1px solid #bdbdbd;
+      border-radius: 0;
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+      height: calc(3.5rem + 2px);
+      line-height: 1.25;
+      padding: 1rem 0.75rem;
+      background-color: #f5f5f5;
+    }
+
+    .text-field_floating-3 .text-field__input:focus {
+      outline: 0;
+      border-bottom: 1px solidrgb(168, 3, 244);
+      box-shadow: none;
+      background-color: #eee;
+    }
+
+    .text-field_floating-3 .text-field__label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      padding: 1rem .75rem;
+      pointer-events: none;
+      border: 1px solid transparent;
+      transform-origin: 0 0;
+      transition: color .15s ease-in-out, transform .15s ease-in-out;
+    }
+
+    .text-field_floating-3 .text-field__input::-moz-placeholder {
+      color: transparent;
+    }
+
+    .text-field_floating-3 .text-field__input::placeholder {
+      color: transparent;
+    }
+
+    .text-field_floating-3 .text-field__input:focus,
+    .text-field_floating-3 .text-field__input:not(:placeholder-shown) {
+      padding-top: 1.625rem;
+      padding-bottom: .625rem;
+      border-bottom: 1px solidrgb(168, 3, 244);
+    }
+
+    .text-field_floating-3 .text-field__input:focus~.text-field__label,
+    .text-field_floating-3 .text-field__input:not(:placeholder-shown)~.text-field__label {
+      transform: scale(.85) translateY(-.75rem) translateX(.15rem);
+      color: rgba(168, 3, 244);
+    }
+
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: rgba(168, 3, 244);
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: rgba(168, 3, 244);
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(168, 3, 244);
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+</style>
