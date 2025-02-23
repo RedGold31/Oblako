@@ -1,7 +1,10 @@
 <template>
 <body>
-<h1>Тестовый сбор данных от пользователя(Регистрация)</h1>
-<div style="max-width: 500px; margin-left: auto; margin-right: auto; padding: 15px;">
+<div class="centerImg">
+<img class="myImg" src="/Logo.jpg">
+</div>
+<h1>Регистрация</h1>
+<div style="max-width: 400px; margin-left: auto; margin-right: auto; padding: 15px;">
 <div class="text-field text-field_floating-3">
     <input class="text-field__input" id="name" name="name" type="text" v-model="userName" placeholder="Имя">
     <label class="text-field__label" for="name">Имя</label>
@@ -10,7 +13,9 @@
     <input class="text-field__input" id="email" name="email" type="password" v-model="userPass" placeholder="Пароль">
     <label class="text-field__label" for="email">Пароль</label>
 </div>
+<div style="display: flex; justify-content: center; align-items: center;">
 <button class="glow-on-hover" @click="sendData()">Регистрация</button>
+</div>
 </div>
 <p>{{ users }}</p>
 </body>
@@ -20,17 +25,17 @@
 export default {
     data(){
         return{
-            users: [],
+            users: {},
             userName: '',
             userPass: ''
         }
     },
     methods: {
         sendData(){
-            this.users.push({
+            this.users={
                 name: this.userName,
                 pass: this.userPass
-            })
+            }
         }
     }
 }
@@ -40,6 +45,7 @@ export default {
 h1 {
     color: blueviolet;
     font-weight: lighter;
+    text-align: center;
 }
 body {
       margin: 0;
@@ -49,6 +55,20 @@ body {
       line-height: 1.5;
       color: #212529;
       background-color: #fff;
+}
+.centerImg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.myImg {
+  object-fit: cover;
+  width: 15%;
+  height: 9%;
+  border: #eee; 
+  border-width: 10px; 
+  border-radius: 10%;
+  
 }
 .text-field {
       margin-bottom: 1rem;
@@ -116,7 +136,7 @@ body {
       border-radius: 0;
       border-top-left-radius: 0.25rem;
       border-top-right-radius: 0.25rem;
-      height: calc(3.5rem + 2px);
+      height: calc(3.5rem + -25px);
       line-height: 1.25;
       padding: 1rem 0.75rem;
       background-color: #f5f5f5;
