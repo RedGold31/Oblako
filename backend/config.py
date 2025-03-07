@@ -1,5 +1,0 @@
-user = "dikiy_naklz228337"
-password = "stReStAMpKINSondiftEASHAMPtArI"
-bd_name = "oblako"
-host = "147.45.184.11"
-port = "17658"
