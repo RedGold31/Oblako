@@ -15,6 +15,7 @@ db = SQLDB(
     }
 )
 
+#.all() .one() .none()
 users = db.execute("select_users", {}).all()
 
 print(users)
